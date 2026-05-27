@@ -24,13 +24,12 @@ setopt CORRECT              # suggest corrections for mistyped commands
 setopt NO_BEEP
 setopt INTERACTIVE_COMMENTS # allow # comments in interactive shell (fixes zsh gotcha)
 
-# --- Scrollback / output ---
-# Handled by kitty natively; TERM should be set correctly
-export TERM=xterm-kitty
-
 # --- Plugins (system-installed) ---
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export EDITOR=nvim
 export VISUAL=nvim
+
+autoload -Uz bracketed-paste-magic
+zle -N bracketed-paste bracketed-paste-magic
