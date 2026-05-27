@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+LOGFILE=/tmp/eso-kill-launcher.log
+echo "$(date) script started" >> "$LOGFILE"
+
+TIMEOUT=120
+INTERVAL=3
+elapsed=0
+
+while ! pgrep -f 'eso64\.exe' > /dev/null; do
+    sleep "$INTERVAL"
+    elapsed=$((elapsed + INTERVAL))
+    if [[ $elapsed -ge $TIMEOUT ]]; then
+        echo "$(date) timed out" >> "$LOGFILE"
+        exit 1
+    fi
+done
+
+echo "$(date) eso64.exe detected, killing launcher..." >> "$LOGFILE"
+pkill -f 'bufferselfpatchfix'
+echo "$(date) pkill exit code: $?" >> "$LOGFILE"

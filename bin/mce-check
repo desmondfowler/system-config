@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# mce-check — post-crash MCE summary
+
+echo "=== rasdaemon recorded errors ==="
+if systemctl is-active --quiet rasdaemon; then
+    sudo ras-mc-ctl --errors
+else
+    echo "rasdaemon is not running"
+fi
+
+echo ""
+echo "=== kernel MCE log (last 10 boots) ==="
+for i in $(seq 0 -1 -9); do
+    boot_time=$(journalctl -k --no-pager -b "$i" --output=short 2>/dev/null | head -1 | awk '{print $1, $2, $3}')
+    [[ -z "$boot_time" ]] && break
+    entries=$(journalctl -k --no-pager -b "$i" 2>/dev/null | grep -i mce | grep -iv "in-kernel mce decoding enabled")
+    if [[ -n "$entries" ]]; then
+        echo "--- boot $i ($boot_time) ---"
+        echo "$entries"
+    fi
+done
+echo "(boots with no MCE errors omitted)"

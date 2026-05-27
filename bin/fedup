@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+log() {
+  printf '\n==> %s\n' "$*"
+}
+
+need_cmd() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+fedup_errors=0
+note_error() {
+  echo "ERROR: $*"
+  fedup_errors=1
+}
+
+if [[ $EUID -eq 0 ]]; then
+  echo "Run this as your normal user, not root."
+  exit 1
+fi
+
+log "Refreshing and upgrading system packages"
+sudo dnf5 upgrade --refresh -y || note_error "dnf5 upgrade failed"
+
+log "Updating Flatpaks (user)"
+if need_cmd flatpak; then
+  flatpak update -y --user || note_error "flatpak user update failed"
+else
+  echo "flatpak not installed; skipping"
+fi
+
+log "Updating Flatpaks (system)"
+if need_cmd flatpak; then
+  sudo flatpak update -y --system || note_error "flatpak system update failed"
+fi
+
+log "Removing unused Flatpak runtimes"
+if need_cmd flatpak; then
+  flatpak uninstall --unused -y --user || true
+  sudo flatpak uninstall --unused -y --system || true
+fi
+
+log "Removing orphaned system packages"
+sudo dnf5 autoremove -y || true
+
+# log "Upgrading firmware"
+# if need_cmd fwupdmgr; then
+#   fwupdmgr refresh --force || true
+#   fwupdmgr get-updates || true
+#   sudo fwupdmgr update || note_error "fwupdmgr update failed"
+# fi
+
+log "Done"
+echo "Reboot if the kernel, graphics stack, or system libraries were updated."
+exit "$fedup_errors"
