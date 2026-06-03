@@ -3,7 +3,7 @@ set -euo pipefail
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-ln -sf "$REPO/.config/nvim"        "$HOME/.config/nvim"
+# ln -sf "$REPO/.config/nvim"        "$HOME/.config/nvim"
 ln -sf "$REPO/home/.bashrc"        "$HOME/.bashrc"
 ln -sf "$REPO/home/.zshrc"         "$HOME/.zshrc"
 ln -sf "$REPO/home/.zshenv"        "$HOME/.zshenv"
