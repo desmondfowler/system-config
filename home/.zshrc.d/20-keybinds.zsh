@@ -1,4 +1,4 @@
-# Use emacs-style keybindings (default zsh)
+# Use vi-style keybindings (default zsh)
 bindkey -v
 export KEYTIMEOUT=1 
 
@@ -19,3 +19,17 @@ bindkey '^[[F' end-of-line
 
 # Delete key
 bindkey '^[[3~' delete-char
+
+function zle-keymap-select {
+  if [[ $KEYMAP == vicmd ]]; then
+    echo -ne '\e[2 q'  # block cursor in normal mode
+  else
+    echo -ne '\e[6 q'  # beam cursor in insert mode
+  fi
+}
+zle -N zle-keymap-select
+
+function zle-line-init {
+  echo -ne '\e[6 q'  # beam on new prompt (insert mode)
+}
+zle -N zle-line-init
