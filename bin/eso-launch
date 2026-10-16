@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-echo "$(date) args: $@" >> /tmp/eso-launch.log
+echo "$(date) args: $*" >> /tmp/eso-launch.log
 ~/.local/bin/eso-kill-launcher &
 MANGOHUD=1 exec "$@"
