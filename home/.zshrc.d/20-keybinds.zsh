@@ -20,6 +20,9 @@ bindkey '^[[F' end-of-line
 # Delete key
 bindkey '^[[3~' delete-char
 
+# History search
+# bindkey '^R' history-incremental-search-backward
+
 function zle-keymap-select {
   if [[ $KEYMAP == vicmd ]]; then
     echo -ne '\e[2 q'  # block cursor in normal mode

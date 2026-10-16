@@ -10,7 +10,7 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
-# --- Kitty scrollback clear ---
+# --- Clear screen and scrollback ---
 alias clearall='printf "\033[H\033[2J\033[3J"'
 
 # --- ddcutil (suppress spurious i2c-0 errors) ---
