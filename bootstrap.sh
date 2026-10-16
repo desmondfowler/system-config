@@ -33,9 +33,8 @@ link home/.claude/settings.json   "$HOME/.claude/settings.json"
 link home/.copilot/settings.json  "$HOME/.copilot/settings.json"
 link home/.copilot/agents         "$HOME/.copilot/agents"
 
-# link .config/kitty              "$HOME/.config/kitty" # replaced by foot, then alacritty
 link .config/alacritty            "$HOME/.config/alacritty"
-link .config/foot                 "$HOME/.config/foot" # kept in case I switch back
+# link .config/foot               "$HOME/.config/foot" # replaced by alacritty; config kept in repo in case I switch back
 link .config/MangoHud             "$HOME/.config/MangoHud"
 link .config/btop                 "$HOME/.config/btop"
 link .config/tmux                 "$HOME/.config/tmux"

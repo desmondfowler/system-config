@@ -5,7 +5,7 @@ Dotfiles and machine config for a Fedora KDE box. `./bootstrap.sh` symlinks ever
 
 ## Layout
 - `home/` - files that live directly in `~` (shell rc, `.gitconfig`, `.ssh/config`, agent tool settings)
-- `.config/` - mirrors `~/.config` (alacritty, foot, tmux, git, input-remapper, Vial, quadlets, ...)
+- `.config/` - mirrors `~/.config` (alacritty, tmux, git, input-remapper, Vial, quadlets, ...)
 - `.config/kde/` - KDE files, *copied* by bootstrap (KDE replaces symlinks); `bin/kde-snapshot` copies live changes back
 - `bin/` - scripts linked into `~/.local/bin`
 - `share/applications/` - custom `.desktop` launchers (Steam-generated shortcuts are not tracked)
@@ -17,5 +17,5 @@ The repo is public, so no names, emails or home paths are committed; `.desktop` 
 which bootstrap substitutes. Keys (`~/.ssh/fedora-github`, `.gnupg`) are never stored here.
 
 ## Packages assumed
-zsh (+ zsh-autosuggestions, zsh-syntax-highlighting), fzf, tmux, alacritty, foot, wl-clipboard, btop,
+zsh (+ zsh-autosuggestions, zsh-syntax-highlighting), fzf, tmux, alacritty, wl-clipboard, btop,
 git, **gh**, restic, libsecret (`secret-tool`), podman, input-remapper.
