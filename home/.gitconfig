@@ -1,0 +1,8 @@
+[init]
+	defaultBranch = master
+[core]
+	autocrlf = false
+	eol = lf
+# Name and email live in the untracked ~/.gitconfig.local (see home/.gitconfig.local.example)
+[include]
+	path = ~/.gitconfig.local
