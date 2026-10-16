@@ -51,6 +51,42 @@ sudo dnf5 autoremove -y || true
 #   sudo fwupdmgr update || note_error "fwupdmgr update failed"
 # fi
 
+log "Checking whether a reboot is needed"
+needs_reboot=0
+# dnf5 needs-restarting -r exits 0 = no reboot needed, 1 = reboot needed;
+# any other status means the check itself failed, so fall back to a kernel comparison.
+rc=0
+dnf5 needs-restarting -r >/dev/null 2>&1 || rc=$?
+case "$rc" in
+    0) ;;
+    1) needs_reboot=1 ;;
+    *)
+        running_kernel="$(uname -r)"
+        latest_kernel="$(rpm -q --last kernel-core 2>/dev/null | head -n1 | awk '{print $1}' | sed 's/^kernel-core-//')"
+        if [[ -n "$latest_kernel" && "$running_kernel" != "$latest_kernel" ]]; then
+            needs_reboot=1
+        fi
+        ;;
+esac
+
+if [[ "$needs_reboot" -eq 1 ]]; then
+    log "A reboot is recommended (kernel or core libs changed)"
+    reply=""
+    if [[ -t 0 ]]; then
+        read -rp "Reboot now? [y/N] " reply || true
+    fi
+    case "$reply" in
+        [yY][eE][sS]|[yY])
+            log "Rebooting"
+            sudo systemctl reboot
+            ;;
+        *)
+            echo "Skipping reboot — remember to do it manually."
+            ;;
+    esac
+else
+    log "No reboot needed"
+fi
+
 log "Done"
-echo "Reboot if the kernel, graphics stack, or system libraries were updated."
 exit "$fedup_errors"
