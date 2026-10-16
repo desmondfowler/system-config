@@ -134,26 +134,26 @@ ForegroundVisited=155,89,182
 
 [General]
 BrowserApplication=brave-browser.desktop
-ColorSchemeHash=2c3f86428c11011a7c64ee1e7f47c274d498ff10
-TerminalApplication=kitty
-TerminalService=kitty.desktop
+ColorSchemeHash=0efb452114ece4d3338057cb89f434aff85d80d0
+TerminalApplication=alacritty
+TerminalService=Alacritty.desktop
 
 [KDE]
-LookAndFeelPackage=org.fedoraproject.fedoradark.desktop
+LookAndFeelPackage=org.kde.breezedark.desktop
 contrast=4
 frameContrast=0.2
 
 [KFileDialog Settings]
 Allow Expansion=false
 Automatically select filename extension=true
-Breadcrumb Navigation=true
+Breadcrumb Navigation=false
 Decoration position=2
 Show Full Path=false
 Show Inline Previews=true
 Show Preview=false
 Show Speedbar=true
 Show hidden files=false
-Sort by=Name
+Sort by=Date
 Sort directories first=true
 Sort hidden files last=false
 Sort reversed=false

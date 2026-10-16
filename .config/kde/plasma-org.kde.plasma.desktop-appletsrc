@@ -5,8 +5,10 @@ RightButton;NoModifier=org.kde.contextmenu
 RightButton;NoModifier=org.kde.contextmenu
 
 [Containments][1]
+ItemGeometries-1440x2560=
 ItemGeometries-2560x1440=
 ItemGeometriesHorizontal=
+ItemGeometriesVertical=
 activityId=d80d3e35-91ef-4867-9bfc-c64f38296238
 formfactor=0
 immutability=1
@@ -76,7 +78,7 @@ DialogHeight=630
 DialogWidth=810
 
 [Containments][3][Applets][6][Configuration][General]
-launchers=preferred://browser,applications:com.discordapp.Discord.desktop,applications:steam.desktop,applications:kitty.desktop,preferred://filemanager,applications:systemsettings.desktop,applications:org.kde.discover.desktop
+launchers=preferred://browser,applications:com.discordapp.Discord.desktop,applications:steam.desktop,applications:Alacritty.desktop,preferred://filemanager,applications:org.kde.discover.desktop,applications:systemsettings.desktop
 showOnlyCurrentActivity=false
 showOnlyCurrentDesktop=false
 
@@ -249,6 +251,9 @@ plugin=org.kde.plasma.notifications
 immutability=1
 plugin=org.kde.plasma.networkmanagement
 
+[Containments][30][Applets][35][Applets][43][Configuration][General]
+currentDetailsTab=details
+
 [Containments][30][Applets][35][Applets][44]
 immutability=1
 plugin=org.kde.plasma.keyboardlayout
@@ -270,7 +275,6 @@ immutability=1
 plugin=org.kde.plasma.volume
 
 [Containments][30][Applets][35][Applets][48][Configuration][General]
-currentTab=streams
 migrated=true
 
 [Containments][30][Applets][35][Applets][49]
@@ -303,7 +307,14 @@ plugin=org.kde.plasma.digitalclock
 
 [Containments][30][Applets][50][Configuration]
 popupHeight=451
-popupWidth=560
+popupWidth=810
+
+[Containments][30][Applets][50][Configuration][Appearance]
+selectedTimeZones=America/Los_Angeles,America/Denver,Local,America/New_York
+
+[Containments][30][Applets][50][Configuration][ConfigDialog]
+DialogHeight=630
+DialogWidth=810
 
 [Containments][30][Applets][51]
 immutability=1
@@ -318,13 +329,40 @@ DialogHeight=630
 DialogWidth=810
 
 [Containments][30][Applets][56][Configuration][General]
-launchers=preferred://browser,applications:com.discordapp.Discord.desktop,applications:steam.desktop,applications:kitty.desktop,preferred://filemanager,applications:org.kde.discover.desktop,applications:systemsettings.desktop
+launchers=preferred://browser,applications:com.discordapp.Discord.desktop,applications:steam.desktop,applications:Alacritty.desktop,applications:com.spotify.Client.desktop,preferred://filemanager,applications:org.kde.discover.desktop,applications:systemsettings.desktop,applications:com.microsoft.VSCode.desktop
 showOnlyCurrentActivity=false
 showOnlyCurrentDesktop=false
 
+[Containments][30][Applets][59]
+immutability=1
+plugin=org.kde.plasma.systemmonitor.net
+
+[Containments][30][Applets][59][Configuration]
+CurrentPreset=org.kde.plasma.systemmonitor
+popupHeight=195
+popupWidth=204
+
+[Containments][30][Applets][59][Configuration][Appearance]
+chartFace=org.kde.ksysguard.linechart
+title=Network Speed
+
+[Containments][30][Applets][59][Configuration][ConfigDialog]
+DialogHeight=630
+DialogWidth=810
+
+[Containments][30][Applets][59][Configuration][SensorColors]
+network/all/download=61,174,233
+network/all/upload=233,120,61
+
+[Containments][30][Applets][59][Configuration][Sensors]
+highPrioritySensorIds=["network/all/download","network/all/upload"]
+
+[Containments][30][Applets][59][Configuration][org.kde.ksysguard.linechart][General]
+lineChartFillOpacity=30
+
 [Containments][30][General]
-AppletOrder=31;56;34;35;50;51
+AppletOrder=31;56;59;34;35;50;51
 
 [ScreenMapping]
 itemsOnDisabledScreens=
-screenMapping=
+screenMapping=desktop:/lotro steam compatdata documents,0,d80d3e35-91ef-4867-9bfc-c64f38296238

@@ -3,13 +3,20 @@ Id_1=09f0da9f-e4bb-4edd-8a8b-d2720e42cca0
 Number=1
 Rows=1
 
+[Effect-overview]
+BorderActivate=9
+
+[Tiling][09f0da9f-e4bb-4edd-8a8b-d2720e42cca0][]
+padding=4
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"width":0.25}]}
+
 [Tiling][09f0da9f-e4bb-4edd-8a8b-d2720e42cca0][1ab268b4-e841-4d26-b5f3-7b4fdeae68d3]
 padding=0
-tiles={"layoutDirection":"horizontal","tiles":[{"width":0.328125},{"width":0.671875}]}
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.503515625},{"width":0.496484375}]}
 
 [Tiling][09f0da9f-e4bb-4edd-8a8b-d2720e42cca0][65f5f9f4-2021-4953-b623-d93f21f0dacc]
 padding=0
-tiles={"layoutDirection":"vertical","tiles":[{"height":0.42421875},{"height":0.57578125}]}
+tiles={"layoutDirection":"vertical","tiles":[{"height":0.4375},{"height":0.5625}]}
 
 [Xwayland]
 Scale=1
