@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Copy live KDE config back into the repo. bootstrap.sh copies the other way
+# (KDE replaces files on save, so they can't be symlinks).
+set -euo pipefail
+
+REPO="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
+
+for f in "$REPO/.config/kde/"*; do
+    cp -f "$HOME/.config/$(basename "$f")" "$f"
+done
+git -C "$REPO" status --short .config/kde
