@@ -1,4 +1,7 @@
 {
   "model": "sonnet",
+  "enabledPlugins": {
+    "cc-plugin-you-should-know@builtin": true
+  },
   "theme": "dark-ansi"
 }
