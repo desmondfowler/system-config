@@ -2,12 +2,10 @@
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
-setopt HIST_IGNORE_DUPS       # don't record duplicate of previous command
 setopt HIST_IGNORE_ALL_DUPS   # remove older duplicate entries
 setopt HIST_FIND_NO_DUPS      # don't show dupes when searching
 setopt HIST_REDUCE_BLANKS     # strip superfluous blanks
-setopt INC_APPEND_HISTORY     # write to history immediately, not on shell exit
-setopt SHARE_HISTORY          # share history across sessions
+setopt SHARE_HISTORY          # share history across sessions (implies incremental append)
 
 # --- Completion ---
 autoload -Uz compinit
@@ -23,10 +21,6 @@ setopt AUTO_CD              # cd by typing directory name
 setopt CORRECT              # suggest corrections for mistyped commands
 setopt NO_BEEP
 setopt INTERACTIVE_COMMENTS # allow # comments in interactive shell (fixes zsh gotcha)
-
-# --- Plugins (system-installed) ---
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export EDITOR=nvim
 export VISUAL=nvim
