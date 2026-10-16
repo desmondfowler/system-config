@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=LOTRO Companion
+Comment=LOTRO character/build planner with live client import
+Exec=@HOME@/.local/bin/lotro-companion-launch.sh
+Icon=@HOME@/.local/share/icons/lotro-companion.ico
+Terminal=false
+Categories=Game;

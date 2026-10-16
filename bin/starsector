@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+cd "$HOME/.local/share/starsector" && exec ./starsector.sh

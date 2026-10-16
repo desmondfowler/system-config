@@ -1,0 +1,10 @@
+# ~/.local/share/applications/lotro-plugin-compendium.desktop
+[Desktop Entry]
+Type=Application
+Name=LOTRO Plugin Compendium
+Comment=Plugin manager for LOTRO (runs in the LOTRO Proton prefix)
+Path=@HOME@/.local/share/Steam/steamapps/compatdata/4008764568/pfx/drive_c/Program Files (x86)/Lunarwater/LOTRO Plugin Compendium
+Exec=@HOME@/.local/bin/protontricks-launch --appid 4008764568 "@HOME@/.local/share/Steam/steamapps/compatdata/4008764568/pfx/drive_c/Program Files (x86)/Lunarwater/LOTRO Plugin Compendium/PluginCompendium.exe"
+Terminal=false
+Categories=Game;
+Keywords=lotro;lord of the rings;plugins;

@@ -1,0 +1,9 @@
+# ~/.local/share/applications/trios.desktop
+[Desktop Entry]
+Type=Application
+Name=TriOS
+Exec=@HOME@/.local/bin/trios
+Icon=@HOME@/.local/share/TriOS/data/flutter_assets/assets/images/telos_faction_crest.png
+Categories=Game;Utility;
+Terminal=false
+StartupNotify=true

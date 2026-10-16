@@ -1,0 +1,9 @@
+# ~/.local/share/applications/starsector.desktop
+[Desktop Entry]
+Type=Application
+Name=Starsector
+Exec=@HOME@/.local/bin/starsector
+Icon=@HOME@/.local/share/starsector/graphics/ui/s_icon64.png
+Categories=Game;
+Terminal=false
+StartupNotify=true
