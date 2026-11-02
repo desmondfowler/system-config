@@ -11,5 +11,6 @@
       "effortLevel": "medium"
     }
   },
+  "includeCoAuthoredBy": false,
   "theme": "dark-ansi"
 }
