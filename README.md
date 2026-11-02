@@ -23,9 +23,22 @@ which bootstrap substitutes. Keys (`~/.ssh/fedora-github`, `.gnupg`) are never s
 zsh (+ zsh-autosuggestions, zsh-syntax-highlighting), fzf, tmux, alacritty, wl-clipboard, btop,
 git, **gh**, restic, libsecret (`secret-tool`), podman, input-remapper.
 
-## Post-install (state held outside the repo)
+## Manual steps / state outside the repo
 
-Both settings live in tailscaled state, not in this repo, so a rebuild won't recreate them; re-run after a fresh install.
+Install nvm, then install the current LTS Node.js and set it as the default:
+
+```sh
+nvm install --lts && nvm alias default 'lts/*'
+```
+
+`bootstrap.sh` clones `~/.powerlevel10k` at the commit pinned by `P10K_SHA` in `bootstrap.sh`.
+To update the theme, change that pin to the desired commit SHA.
+
+The Lean prompt works without a Nerd Font. To use the icon styles, install MesloLGS NF and select it
+in the terminal profile. Rerunning `p10k configure` rewrites `home/.p10k.zsh`, including the color
+edits; review the diff or save a copy first.
+
+Tailscale settings live in tailscaled state, not in this repo, so a rebuild won't recreate them; re-run after a fresh install.
 
 - `sudo tailscale set --accept-dns=true` - MagicDNS routing via systemd-resolved; without it, `*.ts.net` names don't resolve
 - `sudo tailscale serve --bg 5006` - HTTPS proxy to the Actual container on `127.0.0.1:5006`; Actual needs a secure
