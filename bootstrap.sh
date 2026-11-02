@@ -11,7 +11,8 @@ link() {
     local src="$REPO/$1" dst="$2"
     mkdir -p "$(dirname "$dst")"
     if [[ -e "$dst" || -L "$dst" ]] && [[ ! -L "$dst" ]]; then
-        local backup="$dst.bak.$(date +%Y%m%d%H%M%S)"
+        local backup
+        backup="$dst.bak.$(date +%Y%m%d%H%M%S)"
         echo "backing up $dst -> $backup"
         mv "$dst" "$backup"
     fi
