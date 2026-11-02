@@ -3,5 +3,13 @@
   "enabledPlugins": {
     "cc-plugin-you-should-know@builtin": true
   },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    },
+    "claude-sonnet-5-5": {
+      "effortLevel": "medium"
+    }
+  },
   "theme": "dark-ansi"
 }
