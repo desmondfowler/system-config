@@ -1,3 +1,8 @@
+# p10k instant prompt: keep this at the very top
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # Source all files in ~/.zshrc.d in order
 for f in ~/.zshrc.d/*.zsh(N); do
   source "$f"

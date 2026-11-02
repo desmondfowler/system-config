@@ -19,11 +19,20 @@ link() {
     ln -sfn "$src" "$dst"
 }
 
+# External zsh theme (not vendored). Pinned for reproducible rebuilds.
+P10K_SHA="d05a1b00f9a61f9578bf9dc19b8451942dde8734"
+if [[ ! -f "$HOME/.powerlevel10k/powerlevel10k.zsh-theme" ]]; then
+    git init -q "$HOME/.powerlevel10k"
+    git -C "$HOME/.powerlevel10k" fetch --depth=1 https://github.com/romkatv/powerlevel10k.git "$P10K_SHA"
+    git -C "$HOME/.powerlevel10k" checkout -q FETCH_HEAD
+fi
+
 # link .config/nvim -- managed by nvim-config repo
 link home/.bashrc                 "$HOME/.bashrc"
 link home/.zshrc                  "$HOME/.zshrc"
 link home/.zshenv                 "$HOME/.zshenv"
 link home/.zshrc.d                "$HOME/.zshrc.d"
+link home/.p10k.zsh               "$HOME/.p10k.zsh"
 link home/.gitconfig              "$HOME/.gitconfig"
 
 mkdir -p "$HOME/.ssh" && chmod 700 "$HOME/.ssh"
