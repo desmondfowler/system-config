@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+sed -i '/^[Cc]o-[Aa]uthored-[Bb]y:.*\(Copilot\|Claude\|Anthropic\|Cursor\|Codex\|Gemini\)/Id' "$1"

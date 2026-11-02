@@ -3,6 +3,7 @@
 [core]
 	autocrlf = false
 	eol = lf
+	hooksPath = ~/.config/git/hooks
 # Name and email live in the untracked ~/.gitconfig.local (see home/.gitconfig.local.example)
 [include]
 	path = ~/.gitconfig.local
