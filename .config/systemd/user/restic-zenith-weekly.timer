@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily restic backup, 23:00
+
+[Timer]
+OnCalendar=*-*-* 23:00:00
+Persistent=true
+AccuracySec=1min
+Unit=restic-zenith-weekly.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,11 @@
+[Unit]
+Description=Weekly restic forget and prune (new repo, full snapshots only)
+OnFailure=restic-zenith-notify@%n.service
+
+[Service]
+Type=oneshot
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin
+Nice=10
+IOSchedulingClass=idle
+TimeoutStartSec=infinity
+ExecStart=/usr/bin/flock %h/.local/state/restic-zenith/repo.lock %h/.local/bin/restic-zenith-new forget --retry-lock 2h --tag full --group-by host --keep-daily 7 --keep-weekly 8 --keep-monthly 12 --keep-yearly 2 --prune

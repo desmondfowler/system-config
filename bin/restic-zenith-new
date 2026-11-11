@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+source "$HOME/.config/restic/restic-zenith-new.env"
+
+: "${AWS_ACCESS_KEY_ID:?Set AWS_ACCESS_KEY_ID in restic-zenith-new.env}"
+: "${AWS_SECRET_ACCESS_KEY:?Set AWS_SECRET_ACCESS_KEY in restic-zenith-new.env}"
+: "${RESTIC_PASSWORD_FILE:?Set RESTIC_PASSWORD_FILE in restic-zenith-new.env}"
+: "${RESTIC_REPOSITORY:?Set RESTIC_REPOSITORY in restic-zenith-new.env}"
+
+exec restic "$@"

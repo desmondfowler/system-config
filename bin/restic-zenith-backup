@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+# restic-zenith-backup <pass1|full|dry> [limit KiB/s]
+set -uo pipefail
+
+MODE="${1:-}"; LIMIT="${2:-1300}"
+case "$MODE" in pass1|full|dry) ;; *) echo "usage: $0 pass1|full|dry [KiB/s]" >&2; exit 2 ;; esac
+
+SS="$HOME/.local/share/system-state"
+PB="$HOME/.local/share/pre-backup"
+EXC="$HOME/.config/restic/zenith-new.excludes"
+RESTIC="$HOME/.local/bin/restic-zenith-new"
+WARN=0
+
+log()  { echo "[$(date '+%F %T')] $*"; }
+note() { notify-send -a restic-zenith "$1" "$2" 2>/dev/null || true; }
+fail() { log "FAIL: $*"; notify-send -u critical -a restic-zenith 'Backup FAILED' "$*" 2>/dev/null || true; exit 1; }
+warn() { log "WARN: $*"; WARN=1; }
+
+[ -r "$EXC" ] || fail "missing exclude file $EXC"
+[ -x "$RESTIC" ] || fail "missing wrapper $RESTIC"
+if [ -n "$(podman ps -q --filter name=homestead --filter status=running)" ]; then fail "homestead container is running; stop it first"; fi
+pgrep -f 'steam.sh|Battle.net.exe|lotroclient' >/dev/null && warn "Steam/Battle.net/LOTRO running; prefix files may change mid-backup"
+
+log "exporting system state to $SS"
+mkdir -p "$SS/etc" || fail "cannot create $SS"
+run() { local out="$1"; shift; "$@" > "$SS/$out" 2>&1 || warn "$* failed (see $out)"; }
+run dnf-userinstalled.txt dnf repoquery --userinstalled
+run dnf-repos.txt dnf repolist --enabled
+run flatpak-apps.txt flatpak list --app --columns=application,origin,installation
+run flatpak-remotes.txt flatpak remotes --columns=name,url
+run units-system-enabled.txt systemctl list-unit-files --state=enabled --no-pager
+run units-user-enabled.txt systemctl --user list-unit-files --state=enabled --no-pager
+run crontab.txt crontab -l
+run lsblk.txt lsblk -f
+run mounts.txt findmnt
+for p in /etc/fstab /etc/hosts /etc/environment /etc/default/grub /etc/dnf/dnf.conf /etc/yum.repos.d /etc/keyd /etc/sysctl.d /etc/modprobe.d /etc/udev/rules.d; do
+  rsync -aR "$p" "$SS/" >/dev/null 2>&1 || warn "copy of $p failed"
+done
+
+if [ "$MODE" != dry ]; then
+  VOL="$(podman volume inspect --format '{{.Mountpoint}}' actual-data)" || fail "cannot inspect actual-data"
+  mkdir -p "$PB/actual-data" || fail "cannot create $PB"
+  if systemctl --user is-active --quiet actual.service; then
+    trap 'systemctl --user start actual.service' EXIT
+    systemctl --user stop actual.service || fail "could not stop actual.service"
+    rsync -a --delete "$VOL/" "$PB/actual-data/" || fail "copy of actual-data failed"
+    systemctl --user start actual.service || warn "actual.service did not restart"
+    trap - EXIT
+  else
+    warn "actual.service not active; copying volume as-is"
+    rsync -a --delete "$VOL/" "$PB/actual-data/" || fail "copy of actual-data failed"
+  fi
+  for db in "$PB"/actual-data/*/*.sqlite; do
+    [ -e "$db" ] || continue
+    r="$(sqlite3 -readonly "$db" 'PRAGMA integrity_check;' 2>&1)"
+    [ "$r" = ok ] || warn "integrity_check on $db: $r"
+  done
+fi
+
+EXTRA=(); ARGS=()
+[ "$MODE" = pass1 ] && EXTRA=(--exclude $HOME/Pictures --exclude $HOME/Documents --exclude $HOME/Games)
+[ "$MODE" = dry ] && ARGS=(--dry-run -vv)
+SRC=(
+  $HOME
+  /mnt/nvme-data/SteamLibrary/steamapps/compatdata
+  /mnt/sata-data/SteamLibrary/steamapps/compatdata
+  "/mnt/nvme-data/SteamLibrary/steamapps/common/Pathfinder Second Adventure/Mods"
+  "/mnt/nvme-data/SteamLibrary/steamapps/common/Dwarf Fortress/save"
+)
+
+export RESTIC_PROGRESS_FPS=0.0167
+log "starting restic backup mode=$MODE limit=${LIMIT}KiB/s"
+"$RESTIC" backup --host zenith --tag "system,$MODE" --limit-upload "$LIMIT" --exclude-file "$EXC" --exclude-caches --exclude-if-present .nobackup "${EXTRA[@]}" "${ARGS[@]}" "${SRC[@]}"
+rc=$?
+log "restic exit code $rc"
+case "$rc" in
+  0) if [ "$WARN" = 0 ]; then note 'Backup OK' "$MODE finished"; else note 'Backup OK, with warnings' "$MODE finished; check the log"; fi; exit 0 ;;
+  3) note 'Backup saved, some files unreadable' "$MODE: restic exit 3; check the log"; exit 0 ;;
+  *) fail "restic exit $rc" ;;
+esac

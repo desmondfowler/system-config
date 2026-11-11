@@ -1,0 +1,3 @@
+# Template only; keep machine-specific paths in ~/.config/restic/zenith-new.excludes.
+# Add one Restic exclude pattern per line, for example:
+# /path/to/data-you-intentionally-exclude

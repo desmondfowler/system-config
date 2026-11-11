@@ -1,0 +1,11 @@
+[Unit]
+Description=Monthly restic check, first Wednesday 12:00
+
+[Timer]
+OnCalendar=Wed *-*-1..7 12:00:00
+Persistent=true
+AccuracySec=1min
+Unit=restic-zenith-check.service
+
+[Install]
+WantedBy=timers.target

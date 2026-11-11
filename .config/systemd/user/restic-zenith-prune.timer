@@ -1,0 +1,11 @@
+[Unit]
+Description=Weekly restic prune, Monday 12:00
+
+[Timer]
+OnCalendar=Mon *-*-* 12:00:00
+Persistent=true
+AccuracySec=1min
+Unit=restic-zenith-prune.service
+
+[Install]
+WantedBy=timers.target

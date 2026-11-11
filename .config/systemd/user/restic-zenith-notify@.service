@@ -1,0 +1,6 @@
+[Unit]
+Description=Notify that %i failed
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/notify-send -u critical restic-zenith "%i failed - see journalctl --user -u %i"

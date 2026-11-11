@@ -1,0 +1,11 @@
+[Unit]
+Description=Monthly restic integrity check (new repo, 5% data subset)
+OnFailure=restic-zenith-notify@%n.service
+
+[Service]
+Type=oneshot
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin
+Nice=10
+IOSchedulingClass=idle
+TimeoutStartSec=infinity
+ExecStart=/usr/bin/flock %h/.local/state/restic-zenith/repo.lock %h/.local/bin/restic-zenith-new check --retry-lock 2h --read-data-subset=5%%

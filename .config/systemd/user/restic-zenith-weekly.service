@@ -1,0 +1,12 @@
+[Unit]
+Description=Weekly restic backup of zenith to B2 (new repo)
+OnFailure=restic-zenith-notify@%n.service
+
+[Service]
+Type=oneshot
+Environment=PATH=%h/.local/bin:/usr/local/bin:/usr/bin
+Nice=10
+IOSchedulingClass=idle
+TimeoutStartSec=infinity
+SuccessExitStatus=3
+ExecStart=/usr/bin/flock %h/.local/state/restic-zenith/repo.lock /usr/bin/systemd-inhibit --what=sleep --who=restic-zenith --why="weekly backup" %h/.local/bin/restic-zenith-backup full 1300
