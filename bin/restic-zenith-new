@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# shellcheck source=/dev/null
 source "$HOME/.config/restic/restic-zenith-new.env"
 
 : "${AWS_ACCESS_KEY_ID:?Set AWS_ACCESS_KEY_ID in restic-zenith-new.env}"

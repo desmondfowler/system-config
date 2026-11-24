@@ -58,10 +58,10 @@ if [ "$MODE" != dry ]; then
 fi
 
 EXTRA=(); ARGS=()
-[ "$MODE" = pass1 ] && EXTRA=(--exclude $HOME/Pictures --exclude $HOME/Documents --exclude $HOME/Games)
+[ "$MODE" = pass1 ] && EXTRA=(--exclude "$HOME/Pictures" --exclude "$HOME/Documents" --exclude "$HOME/Games")
 [ "$MODE" = dry ] && ARGS=(--dry-run -vv)
 SRC=(
-  $HOME
+  "$HOME"
   /mnt/nvme-data/SteamLibrary/steamapps/compatdata
   /mnt/sata-data/SteamLibrary/steamapps/compatdata
   "/mnt/nvme-data/SteamLibrary/steamapps/common/Pathfinder Second Adventure/Mods"
