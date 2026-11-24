@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+root="$HOME"
+out="$HOME/git-repos.txt"
+
+usage() {
+  cat >&2 <<EOF
+usage: git-finder [-d search_dir] [-o output_file]
+  -d  directory to scan (default: \$HOME)
+  -o  output file       (default: \$HOME/git-repos.txt)
+  -h  show this help
+EOF
+}
+
+while getopts "d:o:h" opt; do
+  case "$opt" in
+    d) root="$OPTARG" ;;
+    o) out="$OPTARG" ;;
+    h) usage; exit 0 ;;
+    *) usage; exit 1 ;;
+  esac
+done
+
+[ -d "$root" ] || { echo "not a directory: $root" >&2; exit 1; }
+
+: > "$out"
+find "$root" -type d -name .git -prune -print0 2>/dev/null |
+while IFS= read -r -d '' gitdir; do
+  repo="$(dirname "$(realpath "$gitdir")")"
+  remote="$(git -C "$repo" remote get-url origin 2>/dev/null)"
+  owner="$(printf '%s' "${remote%.git}" | sed -E 's#/+$##; s#^.*[:/]([^/:]+)/[^/]+$#\1#')"
+  [ -z "$remote" ] && owner=""
+  printf '%s,%s,%s\n' "$repo" "${remote:-NONE}" "$owner" >> "$out"
+done
+
+echo "wrote $(wc -l < "$out") repos to $out" >&2

@@ -1,16 +1,28 @@
 {
-  "model": "sonnet",
+  "includeCoAuthoredBy": false,
+  "model": "opus",
+  "hooks": {
+    "Stop": []
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  },
   "enabledPlugins": {
     "cc-plugin-you-should-know@builtin": true
   },
+  "feedbackDrafts": "notify",
   "modelSettings": {
     "claude-opus-5-5": {
-      "effortLevel": "high"
+      "effortLevel": "medium"
     },
     "claude-sonnet-5-5": {
       "effortLevel": "medium"
     }
   },
-  "includeCoAuthoredBy": false,
-  "theme": "dark-ansi"
+  "theme": "dark-ansi",
+  "editorMode": "normal",
+  "autoCompactEnabled": false,
+  "idleCompaction": false,
+  "precomputeCompactionEnabled": false
 }

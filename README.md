@@ -6,7 +6,7 @@ Dotfiles and machine config for a Fedora KDE box. `./bootstrap.sh` symlinks ever
 ## Layout
 
 - `home/` - files that live directly in `~` (shell rc, `.gitconfig`, `.ssh/config`, agent tool settings)
-- `.config/` - mirrors `~/.config` (alacritty, tmux, git, input-remapper, Vial, quadlets, ...)
+- `.config/` - mirrors `~/.config` (alacritty, tmux, git, input-remapper, Vial, VS Code settings, quadlets, systemd user units, ...)
 - `.config/kde/` - KDE files, _copied_ by bootstrap (KDE replaces symlinks); `bin/kde-snapshot` copies live changes back
 - `bin/` - scripts linked into `~/.local/bin`
 - `share/applications/` - custom `.desktop` launchers (Steam-generated shortcuts are not tracked)
@@ -48,32 +48,38 @@ Tailscale settings live in tailscaled state, not in this repo, so a rebuild won'
 
 - `bin/restic-zenith-backup` gathers system state and runs the Zenith backup modes.
 - `bin/restic-zenith-new` loads its private env file and invokes Restic with the configured repository and credentials.
+- `bin/restic-zenith`, `bin/restic-ext` and `bin/restic-old` are the same wrapper for other repositories, each reading `~/.config/restic/<name>.env`.
 - `.config/restic/zenith-new.excludes.example` is a generic template; the real `~/.config/restic/zenith-new.excludes` stays local because it contains machine-specific paths.
-- `restic-zenith-weekly.service` runs the backup; its timer schedules it daily at 23:00.
+- The unit and timer filenames say `weekly`, but `restic-zenith-weekly.timer` runs the backup daily at 23:00.
 - `restic-zenith-prune.service` prunes old snapshots; its timer runs Mondays at 12:00.
 - `restic-zenith-check.service` checks the repository; its timer schedules periodic checks.
 - `restic-zenith-notify@.service` is the notification template used by the jobs.
 
 Wrapper env files, password files, and `restic.master.env` are deliberately untracked. The Zenith wrapper's private env file is `~/.config/restic/restic-zenith-new.env`; keep it owner-only. Password copies live in a password manager entry and a paper copy. No password values or repository identifiers belong in this repo.
 
+The private env file must export `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `RESTIC_REPOSITORY`, and `RESTIC_PASSWORD_FILE`. Keep the password file at mode `600`.
+
+The scripts require `restic`, `rsync`, `sqlite3`, `podman`, `flock`, `systemd-inhibit`, `notify-send`, `dnf`, and `flatpak`. User timers run only while the user manager runs during a login session; lingering is not enabled.
+
 ### Restore on a fresh machine
 
 Create the private env and password files out of band, copy the example excludes file to the local path above and fill in machine-specific patterns, then run from the repo root:
 
 ```sh
-REPO="$PWD"
-mkdir -p "$HOME/.local/bin" "$HOME/.config/restic" "$HOME/.config/systemd/user"
+./bootstrap.sh
+mkdir -p "$HOME/.config/restic" "$HOME/.local/state/restic-zenith"
 cp -n .config/restic/zenith-new.excludes.example "$HOME/.config/restic/zenith-new.excludes"
 chmod 600 "$HOME/.config/restic/restic-zenith-new.env"
-ln -s "$REPO/bin/restic-zenith-backup" "$HOME/.local/bin/restic-zenith-backup"
-ln -s "$REPO/bin/restic-zenith-new" "$HOME/.local/bin/restic-zenith-new"
-for unit in \
-  restic-zenith-weekly.service restic-zenith-weekly.timer \
-  restic-zenith-prune.service restic-zenith-prune.timer \
-  restic-zenith-check.service restic-zenith-check.timer \
-  'restic-zenith-notify@.service'; do
-  ln -s "$REPO/.config/systemd/user/$unit" "$HOME/.config/systemd/user/$unit"
-done
 systemctl --user daemon-reload
 systemctl --user enable --now restic-zenith-weekly.timer restic-zenith-prune.timer restic-zenith-check.timer
 ```
+
+### Disaster recovery
+
+Create a new bucket-scoped B2 application key in the B2 console, then write the private env file. Restore files with:
+
+```sh
+restic-zenith-new restore latest --host zenith --tag full --target <dir> --include <path>
+```
+
+Include `~/.config/restic` in the restore to recover the excludes file. The repository password comes from the password manager entry or the paper copy.

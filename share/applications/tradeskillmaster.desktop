@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=TradeSkillMaster
+Comment=TradeSkillMaster desktop application (Proton)
+Exec=@HOME@/.local/bin/tsm-launch
+Terminal=false
+Categories=Game;
+StartupNotify=true

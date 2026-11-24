@@ -30,6 +30,8 @@ fi
 
 # link .config/nvim -- managed by nvim-config repo
 link home/.bashrc                 "$HOME/.bashrc"
+link home/.bash_profile           "$HOME/.bash_profile"
+link home/.profile                "$HOME/.profile"
 link home/.zshrc                  "$HOME/.zshrc"
 link home/.zshenv                 "$HOME/.zshenv"
 link home/.zshrc.d                "$HOME/.zshrc.d"
@@ -41,6 +43,7 @@ link home/.ssh/config             "$HOME/.ssh/config"
 
 # Agent tool settings (no skills, runtime state, history or caches)
 link home/.claude/settings.json   "$HOME/.claude/settings.json"
+link home/.claude/statusline.sh   "$HOME/.claude/statusline.sh"
 link home/.copilot/settings.json  "$HOME/.copilot/settings.json"
 link home/.copilot/agents         "$HOME/.copilot/agents"
 
@@ -53,6 +56,16 @@ link .config/git                  "$HOME/.config/git"
 link .config/input-remapper-2     "$HOME/.config/input-remapper-2"
 link .config/Vial                 "$HOME/.config/Vial"
 link .config/containers/systemd   "$HOME/.config/containers/systemd"
+
+# Individual files: the rest of Code/User is runtime state
+link .config/Code/User/settings.json    "$HOME/.config/Code/User/settings.json"
+link .config/Code/User/keybindings.json "$HOME/.config/Code/User/keybindings.json"
+
+# Link units individually (systemd keeps *.wants dirs alongside them). Timers are not enabled
+# here because they need the private restic env files; see README.
+for unit in "$REPO/.config/systemd/user/"*; do
+    link ".config/systemd/user/$(basename "$unit")" "$HOME/.config/systemd/user/$(basename "$unit")"
+done
 
 # KDE rewrites these files by replacing them, which would destroy a symlink, so they are
 # copied in rather than linked. Pull live changes back into the repo with bin/kde-snapshot.
@@ -80,3 +93,4 @@ done
 #   ~/.gitconfig.local          (see home/.gitconfig.local.example)
 #   ~/.config/lotro/lotro.env   (see .config/lotro/lotro.env.example)
 #   ~/.config/restic/restic.env (see .config/restic/restic.env.example)
+#   ~/.config/restic/restic-{zenith-new,zenith,ext,old}.env (one per bin/restic-* wrapper)

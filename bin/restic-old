@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# shellcheck source=/dev/null
+source "$HOME/.config/restic/restic-old.env"
+
+: "${AWS_ACCESS_KEY_ID:?Set AWS_ACCESS_KEY_ID in restic-old.env}"
+: "${AWS_SECRET_ACCESS_KEY:?Set AWS_SECRET_ACCESS_KEY in restic-old.env}"
+: "${RESTIC_PASSWORD_FILE:?Set RESTIC_PASSWORD_FILE in restic-old.env}"
+: "${RESTIC_REPOSITORY:?Set RESTIC_REPOSITORY in restic-old.env}"
+
+exec restic "$@"

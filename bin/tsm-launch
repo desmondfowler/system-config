@@ -1,0 +1,2 @@
+#!/bin/sh
+exec protontricks-launch --appid 3295206078 "$HOME/.local/share/Steam/steamapps/compatdata/3295206078/pfx/drive_c/Program Files/TradeSkillMaster/TradeSkillMaster.exe" --no-sandbox --disable-gpu "$@"
