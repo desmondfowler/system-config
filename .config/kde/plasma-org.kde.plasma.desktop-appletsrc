@@ -86,7 +86,7 @@ showOnlyCurrentDesktop=false
 activityId=
 formfactor=0
 immutability=1
-lastScreen=-1
+lastScreen=0
 location=0
 plugin=org.kde.plasma.systemtray
 popupHeight=432
@@ -151,6 +151,10 @@ migrated=true
 immutability=1
 plugin=org.kde.plasma.weather
 
+[Containments][3][Applets][8][Applets][24]
+immutability=1
+plugin=org.kde.plasma.dwellclicker
+
 [Containments][3][Applets][8][Applets][25]
 immutability=1
 plugin=org.kde.plasma.bluetooth
@@ -176,9 +180,9 @@ DialogHeight=630
 DialogWidth=810
 
 [Containments][3][Applets][8][General]
-extraItems=org.kde.kdeconnect,org.kde.plasma.vault,org.kde.kscreen,org.kde.plasma.battery,org.kde.plasma.bluetooth,org.kde.plasma.brightness,org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.keyboardindicator,org.kde.plasma.keyboardlayout,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.networkmanagement,org.kde.plasma.notifications,org.kde.plasma.printmanager,org.kde.plasma.volume,org.kde.plasma.weather
+extraItems=org.kde.kdeconnect,org.kde.plasma.vault,org.kde.kscreen,org.kde.plasma.battery,org.kde.plasma.bluetooth,org.kde.plasma.brightness,org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.keyboardindicator,org.kde.plasma.keyboardlayout,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.networkmanagement,org.kde.plasma.notifications,org.kde.plasma.printmanager,org.kde.plasma.volume,org.kde.plasma.weather,org.kde.plasma.dwellclicker
 iconSpacing=1
-knownItems=org.kde.kdeconnect,org.kde.plasma.vault,org.kde.kscreen,org.kde.plasma.battery,org.kde.plasma.bluetooth,org.kde.plasma.brightness,org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.keyboardindicator,org.kde.plasma.keyboardlayout,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.networkmanagement,org.kde.plasma.notifications,org.kde.plasma.printmanager,org.kde.plasma.volume,org.kde.plasma.weather
+knownItems=org.kde.kdeconnect,org.kde.plasma.vault,org.kde.kscreen,org.kde.plasma.battery,org.kde.plasma.bluetooth,org.kde.plasma.brightness,org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.keyboardindicator,org.kde.plasma.keyboardlayout,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.networkmanagement,org.kde.plasma.notifications,org.kde.plasma.printmanager,org.kde.plasma.volume,org.kde.plasma.weather,org.kde.plasma.dwellclicker
 scaleIconsToFit=true
 
 [Containments][3][General]
@@ -212,7 +216,7 @@ plugin=org.kde.plasma.marginsseparator
 activityId=
 formfactor=0
 immutability=1
-lastScreen=-1
+lastScreen=0
 location=0
 plugin=org.kde.plasma.systemtray
 popupHeight=432
@@ -256,15 +260,15 @@ currentDetailsTab=details
 
 [Containments][30][Applets][35][Applets][44]
 immutability=1
-plugin=org.kde.plasma.keyboardlayout
+plugin=org.kde.plasma.dwellclicker
 
 [Containments][30][Applets][35][Applets][45]
 immutability=1
-plugin=org.kde.plasma.printmanager
+plugin=org.kde.plasma.keyboardlayout
 
 [Containments][30][Applets][35][Applets][46]
 immutability=1
-plugin=org.kde.plasma.keyboardindicator
+plugin=org.kde.plasma.printmanager
 
 [Containments][30][Applets][35][Applets][47]
 immutability=1
@@ -280,6 +284,10 @@ migrated=true
 [Containments][30][Applets][35][Applets][49]
 immutability=1
 plugin=org.kde.kscreen
+
+[Containments][30][Applets][35][Applets][50]
+immutability=1
+plugin=org.kde.plasma.keyboardindicator
 
 [Containments][30][Applets][35][Applets][52]
 immutability=1
@@ -298,8 +306,8 @@ immutability=1
 plugin=org.kde.plasma.mediacontroller
 
 [Containments][30][Applets][35][General]
-extraItems=org.kde.kdeconnect,org.kde.plasma.vault,org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.battery,org.kde.plasma.brightness,org.kde.plasma.networkmanagement,org.kde.plasma.keyboardlayout,org.kde.plasma.printmanager,org.kde.plasma.keyboardindicator,org.kde.plasma.weather,org.kde.plasma.volume,org.kde.kscreen,org.kde.plasma.bluetooth
-knownItems=org.kde.kdeconnect,org.kde.plasma.vault,org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.battery,org.kde.plasma.brightness,org.kde.plasma.networkmanagement,org.kde.plasma.keyboardlayout,org.kde.plasma.printmanager,org.kde.plasma.keyboardindicator,org.kde.plasma.weather,org.kde.plasma.volume,org.kde.kscreen,org.kde.plasma.bluetooth
+extraItems=org.kde.kdeconnect,org.kde.plasma.vault,org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.battery,org.kde.plasma.brightness,org.kde.plasma.networkmanagement,org.kde.plasma.keyboardlayout,org.kde.plasma.printmanager,org.kde.plasma.keyboardindicator,org.kde.plasma.weather,org.kde.plasma.volume,org.kde.kscreen,org.kde.plasma.bluetooth,org.kde.plasma.dwellclicker
+knownItems=org.kde.kdeconnect,org.kde.plasma.vault,org.kde.plasma.cameraindicator,org.kde.plasma.clipboard,org.kde.plasma.devicenotifier,org.kde.plasma.manage-inputmethod,org.kde.plasma.mediacontroller,org.kde.plasma.notifications,org.kde.plasma.battery,org.kde.plasma.brightness,org.kde.plasma.networkmanagement,org.kde.plasma.keyboardlayout,org.kde.plasma.printmanager,org.kde.plasma.keyboardindicator,org.kde.plasma.weather,org.kde.plasma.volume,org.kde.kscreen,org.kde.plasma.bluetooth,org.kde.plasma.dwellclicker
 
 [Containments][30][Applets][50]
 immutability=1
@@ -365,4 +373,4 @@ AppletOrder=31;56;59;34;35;50;51
 
 [ScreenMapping]
 itemsOnDisabledScreens=
-screenMapping=desktop:/lotro steam compatdata documents,0,d80d3e35-91ef-4867-9bfc-c64f38296238
+screenMapping=desktop:/lotro steam compatdata documents,0,d80d3e35-91ef-4867-9bfc-c64f38296238,desktop:/wow commands.md,0,d80d3e35-91ef-4867-9bfc-c64f38296238

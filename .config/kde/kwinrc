@@ -12,11 +12,11 @@ tiles={"layoutDirection":"horizontal","tiles":[{"width":0.25},{"width":0.5},{"wi
 
 [Tiling][09f0da9f-e4bb-4edd-8a8b-d2720e42cca0][1ab268b4-e841-4d26-b5f3-7b4fdeae68d3]
 padding=0
-tiles={"layoutDirection":"horizontal","tiles":[{"width":0.503515625},{"width":0.496484375}]}
+tiles={"layoutDirection":"horizontal","tiles":[{"width":0.494140625},{"width":0.505859375}]}
 
 [Tiling][09f0da9f-e4bb-4edd-8a8b-d2720e42cca0][65f5f9f4-2021-4953-b623-d93f21f0dacc]
 padding=0
-tiles={"layoutDirection":"vertical","tiles":[{"height":0.4375},{"height":0.5625}]}
+tiles={"layoutDirection":"vertical","tiles":[{"height":0.429296875},{"height":0.570703125}]}
 
 [Xwayland]
 Scale=1
