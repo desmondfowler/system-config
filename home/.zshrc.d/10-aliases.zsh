@@ -6,9 +6,12 @@ alias la='ls -A --color=auto'
 alias ls='ls --color=auto'
 
 # --- Safety ---
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
+# Interactive shells only: coding agents source this file, and a prompt hangs them.
+if [[ -o interactive ]]; then
+  alias rm='rm -i'
+  alias cp='cp -i'
+  alias mv='mv -i'
+fi
 
 # --- Clear screen and scrollback ---
 alias clearall='printf "\033[H\033[2J\033[3J"'
